@@ -1,6 +1,7 @@
 # 10k_keypad
 
-QMK firmware for the [10k keypad](https://github.com/souffle17/10k-keypad-hall-sensors) with variable input hall sensors
+QMK firmware for the [10k keypad](https://github.com/souffle17/10k-keypad-hall-sensors) with variable input hall sensors     
+**Note**: This uses a different pin configuration, and will not work unchanged.
 
 * Keyboard Maintainer: [souffle17](https://github.com/souffle17)
 * Hardware Supported: [10k keypad](https://github.com/souffle17/10k-keypad-hall-sensors)
