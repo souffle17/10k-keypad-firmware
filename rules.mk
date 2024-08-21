@@ -1,2 +1,3 @@
-# This file intentionally left blank
 ANALOG_DRIVER_REQUIRED = yes
+SRC += matrix.c
+CUSTOM_MATRIX = lite
