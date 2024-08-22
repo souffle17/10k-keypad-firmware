@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_BOOT,    QK_BOOT,    QK_BOOT,    QK_BOOT,    QK_BOOT,
         QK_BOOT,    QK_BOOT,    QK_BOOT,    QK_BOOT,    QK_BOOT
     ),
-    [1] = LAYOUT_ortho_1x5( // this should be disabled when active
+    [1] = LAYOUT_ortho_2x5( // this should be disabled when active
         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
         KC_A,    KC_S,    KC_D,    KC_F,    KC_G
     )
@@ -148,5 +148,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [4] = LAYOUT_ortho_2x5(
         KC_H,    KC_J,    KC_K,    KC_L,    KC_SEMICOLON,
         KC_N,    KC_M,    KC_COMMA,    KC_DOT,    KC_SLASH
+    ),
+    [5] = LAYOUT_ortho_2x5(
+        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+        KC_A,    KC_S,    KC_D,    KC_F,    KC_LEFT_CTRL
     )
 };
