@@ -20,7 +20,7 @@ static uint16_t previous_voltage_1 = 0;
 static uint16_t previous_voltage_2 = 0;
 static bool key_pressed_1 = false; 
 static bool key_pressed_2 = false; 
-static uint16_t buffer = 70;
+static uint16_t buffer = 20;
 
 void keyboard_post_init_user(void) {
     analogReference(ADC_REF_POWER);
@@ -74,7 +74,7 @@ void bootmagic_scan(void) {
 
 // Scary!
 void matrix_scan_user(void) {
-    if (user_config.key_layer == 4) {
+    if (user_config.key_layer == 1) {
         uint16_t current_voltage_1 = adc_read(pinToMux(F6));
         if (current_voltage_1 > previous_voltage_1) {
             if(!key_pressed_1 && current_voltage_1 > previous_voltage_1 + buffer) {
@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_ortho_2x5( // this should be disabled when active
         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
         KC_A,    KC_S,    KC_D,    KC_F,    KC_G
-    )
+    ),
     [2] = LAYOUT_ortho_2x5(
         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
         KC_A,    KC_S,    KC_D,    KC_F,    KC_G
