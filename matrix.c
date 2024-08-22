@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debounce.h"
 #include "atomic_util.h"
 
+
 #ifdef SPLIT_KEYBOARD
 #    include "split_common/split_util.h"
 #    include "split_common/transactions.h"
@@ -65,16 +66,7 @@ static SPLIT_MUTABLE_COL pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
 #    endif // MATRIX_COL_PINS
 #endif
 
-// userdata
-typedef union {
-  uint32_t raw;
-  struct {
-    uint16_t     key_layer :16;
-  };
-} user_config_t;
-
-user_config_t user_config;
-static bool skip_row = false;
+extern bool disable_scan;
 
 /* matrix state(1:on, 0:off) */
 extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
@@ -324,12 +316,6 @@ void matrix_init_custom(void) {
     debounce_init(ROWS_PER_HAND);
 
     matrix_init_kb();
-
-    user_config.raw = eeconfig_read_user();
-
-    if (user_config.key_layer == 4) {
-        skip_row = true;
-    }
 }
 
 #ifdef SPLIT_KEYBOARD
@@ -345,9 +331,10 @@ uint8_t matrix_scan_custom(void) {
 
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
-    for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
-        if(skip_row && current_row == 1) continue;
-        matrix_read_cols_on_row(curr_matrix, current_row);
+    if (!disable_scan) {
+        for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
+            matrix_read_cols_on_row(curr_matrix, current_row);
+        }
     }
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows

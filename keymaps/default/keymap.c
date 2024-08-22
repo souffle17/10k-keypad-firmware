@@ -14,6 +14,8 @@ typedef union {
 
 user_config_t user_config;
 
+bool disable_scan = false;
+
 static uint16_t previous_voltage_1 = 0;
 static uint16_t previous_voltage_2 = 0;
 static bool key_pressed_1 = false; 
@@ -26,13 +28,14 @@ void keyboard_post_init_user(void) {
 }
 
 void bootmagic_scan(void) {
+
     matrix_scan();
     wait_ms(DEBOUNCE * 2);
     matrix_scan();
 
     user_config.raw = eeconfig_read_user();
 
-    if (user_config.key_layer == 0) {
+    if (user_config.key_layer == 0 || user_config.key_layer == 4) {
         user_config.key_layer = 1;
     }
 
@@ -59,6 +62,7 @@ void bootmagic_scan(void) {
     }
     else if (matrix_get_row(0) & (1 << 3)) {
         layer = 4;
+        disable_scan = true;
     }
 
     if (user_config.key_layer != layer) {
