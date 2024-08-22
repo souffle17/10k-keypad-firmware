@@ -35,8 +35,8 @@ void bootmagic_scan(void) {
 
     user_config.raw = eeconfig_read_user();
 
-    if (user_config.key_layer == 0 || user_config.key_layer == 4) {
-        user_config.key_layer = 1;
+    if (user_config.key_layer == 0 || user_config.key_layer == 1) {
+        user_config.key_layer = 2;
     }
 
     //type safety
@@ -53,6 +53,7 @@ void bootmagic_scan(void) {
     }
     else if (matrix_get_row(0) & (1 << 0)) {
         layer = 1;
+        disable_scan = true;
     }
     else if (matrix_get_row(0) & (1 << 1)) {
         layer = 2;
@@ -62,7 +63,6 @@ void bootmagic_scan(void) {
     }
     else if (matrix_get_row(0) & (1 << 3)) {
         layer = 4;
-        disable_scan = true;
     }
 
     if (user_config.key_layer != layer) {
@@ -133,19 +133,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_BOOT,    QK_BOOT,    QK_BOOT,    QK_BOOT,    QK_BOOT,
         QK_BOOT,    QK_BOOT,    QK_BOOT,    QK_BOOT,    QK_BOOT
     ),
-    [1] = LAYOUT_ortho_2x5(
+    [1] = LAYOUT_ortho_1x5( // this should be disabled when active
+        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+        KC_A,    KC_S,    KC_D,    KC_F,    KC_G
+    )
+    [2] = LAYOUT_ortho_2x5(
         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
         KC_A,    KC_S,    KC_D,    KC_F,    KC_G
     ),
-    [2] = LAYOUT_ortho_2x5(
+    [3] = LAYOUT_ortho_2x5(
         KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
     ),
-    [3] = LAYOUT_ortho_2x5(
+    [4] = LAYOUT_ortho_2x5(
         KC_H,    KC_J,    KC_K,    KC_L,    KC_SEMICOLON,
         KC_N,    KC_M,    KC_COMMA,    KC_DOT,    KC_SLASH
-    ),
-    [4] = LAYOUT_ortho_1x5(
-        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
     )
 };
